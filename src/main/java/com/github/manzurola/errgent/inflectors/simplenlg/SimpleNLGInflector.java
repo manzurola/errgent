@@ -1,5 +1,6 @@
 package com.github.manzurola.errgent.inflectors.simplenlg;
 
+import com.github.manzurola.errgent.InflectedToken;
 import com.github.manzurola.errgent.Inflector;
 import io.languagetoys.spacy4j.api.containers.Token;
 import simplenlg.features.*;
@@ -7,7 +8,6 @@ import simplenlg.framework.NLGElement;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
@@ -20,14 +20,16 @@ public final class SimpleNLGInflector implements Inflector {
     }
 
     @Override
-    public final Set<String> inflect(Token token) {
+    public final List<InflectedToken> inflect(Token token) {
         List<NLGElement> inflections = new ArrayList<>();
         collectInflections(token, inflections::add);
         return inflections
                 .stream()
                 .map(simpleNLG::realise)
                 .filter(s -> !token.lower().equals(s))
-                .collect(Collectors.toUnmodifiableSet());
+                .map(s -> new InflectedToken(token, s))
+                .distinct()
+                .collect(Collectors.toList());
     }
 
     protected void collectInflections(Token token, Consumer<NLGElement> results) {

@@ -11,9 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class ErrgentImpl implements Errgent {
 
@@ -35,7 +33,9 @@ public class ErrgentImpl implements Errgent {
     public List<Inflection> inflect(List<Token> target, AnnotationFilter filter) {
         return target
                 .stream()
-                .flatMap(this::inflectToken)
+                .map(inflector::inflect)
+                .flatMap(Collection::stream)
+                .parallel()
                 .map(this::applyTokenInflection)
                 .map(source -> annotator.annotate(source.tokens(), target))
                 .flatMap(Collection::stream)
@@ -47,12 +47,6 @@ public class ErrgentImpl implements Errgent {
     @Override
     public List<Inflection> inflect(List<Token> target) {
         return inflect(target, Annotation::isError);
-    }
-
-    public Stream<InflectedToken> inflectToken(Token token) {
-        return inflector.inflect(token)
-                .stream()
-                .map(s -> new InflectedToken(token, s));
     }
 
     public Doc applyTokenInflection(InflectedToken inflection) {
@@ -70,36 +64,4 @@ public class ErrgentImpl implements Errgent {
                 .toString();
     }
 
-    public static final class InflectedToken {
-
-        private final Token token;
-        private final String replacement;
-
-        public InflectedToken(Token token, String replacement) {
-            this.token = token;
-            this.replacement = replacement;
-        }
-
-        public Token token() {
-            return token;
-        }
-
-        public String replacement() {
-            return replacement;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            InflectedToken that = (InflectedToken) o;
-            return token.equals(that.token) &&
-                    replacement.equals(that.replacement);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(token, replacement);
-        }
-    }
 }
