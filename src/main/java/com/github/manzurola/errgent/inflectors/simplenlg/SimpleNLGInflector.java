@@ -9,7 +9,7 @@ import simplenlg.framework.NLGElement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public final class SimpleNLGInflector implements Inflector {
 
@@ -20,7 +20,7 @@ public final class SimpleNLGInflector implements Inflector {
     }
 
     @Override
-    public final List<InflectedToken> inflect(Token token) {
+    public final Stream<InflectedToken> inflect(Token token) {
         List<NLGElement> inflections = new ArrayList<>();
         collectInflections(token, inflections::add);
         return inflections
@@ -28,8 +28,7 @@ public final class SimpleNLGInflector implements Inflector {
                 .map(simpleNLG::realise)
                 .filter(s -> !token.lower().equals(s))
                 .map(s -> new InflectedToken(token, s))
-                .distinct()
-                .collect(Collectors.toList());
+                .distinct();
     }
 
     protected void collectInflections(Token token, Consumer<NLGElement> results) {

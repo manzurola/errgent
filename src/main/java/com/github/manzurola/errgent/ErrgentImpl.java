@@ -33,9 +33,8 @@ public class ErrgentImpl implements Errgent {
     public List<Inflection> inflect(List<Token> target, AnnotationFilter filter) {
         return target
                 .stream()
-                .map(inflector::inflect)
-                .flatMap(Collection::stream)
                 .parallel()
+                .flatMap(inflector::inflect)
                 .map(this::applyTokenInflection)
                 .map(source -> annotator.annotate(source.tokens(), target))
                 .flatMap(Collection::stream)

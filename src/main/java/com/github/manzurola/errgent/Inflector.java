@@ -3,10 +3,10 @@ package com.github.manzurola.errgent;
 
 import io.languagetoys.spacy4j.api.containers.Token;
 
-import java.util.List;
+import java.util.stream.Stream;
 
 public interface Inflector {
 
-    List<InflectedToken> inflect(Token token);
+    Stream<InflectedToken> inflect(Token token);
 
 }
