@@ -39,7 +39,7 @@ public class ErrgentTest {
         GrammaticalErrorFilter filter =
                 new GrammaticalErrorFilter(Set.of(GrammaticalError.REPLACEMENT_SUBJECT_VERB_AGREEMENT));
 
-        List<Inflection> inflections = errgent.inflect(target.tokens(), filter);
+        List<Inflection> inflections = errgent.generate(target.tokens(), filter);
         Inflection actual = inflections.get(0);
 
         Assertions.assertEquals(expected, actual);

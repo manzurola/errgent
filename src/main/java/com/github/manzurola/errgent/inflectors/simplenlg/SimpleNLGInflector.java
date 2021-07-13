@@ -2,6 +2,8 @@ package com.github.manzurola.errgent.inflectors.simplenlg;
 
 import com.github.manzurola.errgent.InflectedToken;
 import com.github.manzurola.errgent.Inflector;
+import io.languagetoys.errant4j.lang.en.utils.wordlist.HunspellWordList;
+import io.languagetoys.errant4j.lang.en.utils.wordlist.WordList;
 import io.languagetoys.spacy4j.api.containers.Token;
 import simplenlg.features.*;
 import simplenlg.framework.NLGElement;
@@ -14,9 +16,11 @@ import java.util.stream.Stream;
 public final class SimpleNLGInflector implements Inflector {
 
     private final SimpleNLG simpleNLG;
+    private final WordList wordList;
 
     public SimpleNLGInflector(SimpleNLG simpleNLG) {
         this.simpleNLG = simpleNLG;
+        this.wordList = new HunspellWordList();
     }
 
     @Override
@@ -25,9 +29,11 @@ public final class SimpleNLGInflector implements Inflector {
         collectInflections(token, inflections::add);
         return inflections
                 .stream()
+                .parallel()
                 .map(simpleNLG::realise)
                 .filter(s -> !token.lower().equals(s))
                 .map(s -> new InflectedToken(token, s))
+                .filter(t -> wordList.contains(t.token().text()))
                 .distinct();
     }
 
