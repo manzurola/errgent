@@ -9,9 +9,4 @@ public interface Inflector {
 
     Set<String> inflect(Token token);
 
-    interface Handler {
-        boolean canHandle(Token token);
-
-        Set<String> handle(Token token);
-    }
 }

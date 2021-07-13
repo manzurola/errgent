@@ -5,12 +5,12 @@ import io.languagetoys.spacy4j.api.containers.Token;
 
 import java.util.Objects;
 
-public final class Inflection {
+public final class InflectedToken {
 
     private final Token token;
     private final String replacement;
 
-    public Inflection(Token token, String replacement) {
+    public InflectedToken(Token token, String replacement) {
         this.token = token;
         this.replacement = replacement;
     }
@@ -35,7 +35,7 @@ public final class Inflection {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Inflection that = (Inflection) o;
+        InflectedToken that = (InflectedToken) o;
         return token.equals(that.token) &&
                 replacement.equals(that.replacement);
     }

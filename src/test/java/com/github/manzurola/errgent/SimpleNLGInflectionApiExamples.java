@@ -11,8 +11,6 @@ import simplenlg.realiser.english.Realiser;
 
 public class SimpleNLGInflectionApiExamples {
 
-//    SentenceFactory sentences = SentenceFactory.createDefault();
-
     private final Lexicon lexicon = Lexicon.getDefaultLexicon();
     private final NLGFactory nlgFactory = new NLGFactory(lexicon);
     private final Realiser realiser = new Realiser(lexicon);

@@ -1,7 +1,6 @@
 package com.github.manzurola.errgent.inflectors;
 
 import com.github.manzurola.errgent.inflectors.simplenlg.*;
-import com.grammartoys.geg.inflectors.simplenlg.*;
 
 import java.util.HashMap;
 import java.util.List;
