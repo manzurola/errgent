@@ -1,4 +1,4 @@
-package com.grammartoys.geg.inflectors.simplenlg;
+package com.github.manzurola.errgent.inflectors.simplenlg;
 
 import io.languagetoys.spacy4j.api.containers.Token;
 import simplenlg.features.Feature;

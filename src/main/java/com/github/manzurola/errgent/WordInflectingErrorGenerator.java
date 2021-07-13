@@ -1,7 +1,7 @@
-package com.grammartoys.geg;
+package com.github.manzurola.errgent;
 
-import com.grammartoys.geg.inflectors.Inflection;
-import com.grammartoys.geg.inflectors.Inflector;
+import com.github.manzurola.errgent.inflectors.Inflection;
+import com.github.manzurola.errgent.inflectors.Inflector;
 import io.languagetoys.errant4j.core.Annotation;
 import io.languagetoys.errant4j.core.Annotator;
 import io.languagetoys.spacy4j.api.containers.Span;

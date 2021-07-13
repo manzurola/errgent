@@ -1,4 +1,4 @@
-package com.grammartoys.geg.inflectors;
+package com.github.manzurola.errgent.inflectors;
 
 import io.languagetoys.spacy4j.api.containers.Span;
 import io.languagetoys.spacy4j.api.containers.Token;

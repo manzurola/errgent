@@ -1,7 +1,7 @@
-package com.grammartoys.geg;
+package com.github.manzurola.errgent;
 
-import com.grammartoys.geg.inflectors.InflectorFactory;
-import com.grammartoys.geg.inflectors.simplenlg.PersonInflector;
+import com.github.manzurola.errgent.inflectors.InflectorFactory;
+import com.github.manzurola.errgent.inflectors.simplenlg.PersonInflector;
 import io.languagetoys.errant4j.core.Annotator;
 
 public final class SVAErrorGenerator extends WordInflectingErrorGenerator {

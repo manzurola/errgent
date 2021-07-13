@@ -1,4 +1,4 @@
-package com.grammartoys.geg.inflectors;
+package com.github.manzurola.errgent.inflectors;
 
 import java.util.List;
 

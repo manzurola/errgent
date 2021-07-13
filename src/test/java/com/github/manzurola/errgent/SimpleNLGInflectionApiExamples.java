@@ -1,4 +1,4 @@
-package com.grammartoys.geg;
+package com.github.manzurola.errgent;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

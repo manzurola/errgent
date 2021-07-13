@@ -1,4 +1,4 @@
-package com.grammartoys.geg;
+package com.github.manzurola.errgent;
 
 import io.languagetoys.errant4j.core.Annotation;
 
