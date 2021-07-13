@@ -16,13 +16,17 @@ public final class SimpleNLG {
     private final NLGFactory nlgFactory = new NLGFactory(Lexicon.getDefaultLexicon());
     private final Realiser realiser = new Realiser();
 
-    public NLGElement createElement(Token token, String feature, Object value) {
+    public final String realise(NLGElement element) {
+        return realiser.realise(element).getRealisation();
+    }
+
+    public final NLGElement createElement(Token token, String feature, Object value) {
         NLGElement element = createElement(token);
         element.setFeature(feature, value);
         return element;
     }
 
-    public NLGElement createElement(Token token) {
+    public final NLGElement createElement(Token token) {
         return createElementFromToken(token);
     }
 
@@ -58,10 +62,6 @@ public final class SimpleNLG {
         }
 
         return result;
-    }
-
-    public String realise(NLGElement element) {
-        return realiser.realise(element).getRealisation();
     }
 
 }
