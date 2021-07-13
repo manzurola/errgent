@@ -5,7 +5,7 @@ import io.languagetoys.errant4j.core.GrammaticalError;
 
 import java.util.Set;
 
-public class GrammaticalErrorFilter implements ErrorFilter {
+public class GrammaticalErrorFilter implements AnnotationFilter {
 
     private final Set<GrammaticalError> errors;
 

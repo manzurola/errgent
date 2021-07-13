@@ -1,4 +1,4 @@
-package com.github.manzurola.errgent.inflectors;
+package com.github.manzurola.errgent;
 
 
 import io.languagetoys.spacy4j.api.containers.Token;
