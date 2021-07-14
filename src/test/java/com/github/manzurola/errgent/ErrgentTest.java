@@ -14,6 +14,8 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.Set;
 
+import static io.languagetoys.errant4j.core.GrammaticalError.REPLACEMENT_SUBJECT_VERB_AGREEMENT;
+
 public class ErrgentTest {
 
     @Test
@@ -21,23 +23,21 @@ public class ErrgentTest {
 
         SpaCy spaCy = SpaCy.create(CoreNLPAdapter.create());
         Annotator annotator = Errant.create().annotator("en", spaCy);
-
         Errgent errgent = new ErrgentImpl(annotator);
 
         Doc source = errgent.parse("My girls like to has fun.");
         Doc target = errgent.parse("My girls like to have fun.");
 
-        Annotation annotation = Edit.builder()
+        Inflection expected = Edit.builder()
                 .substitute("has")
                 .with("have")
                 .atPosition(4, 4)
                 .project(source.tokens(), target.tokens())
-                .transform(Annotation::of)
-                .setGrammaticalError(GrammaticalError.REPLACEMENT_SUBJECT_VERB_AGREEMENT);
-        Inflection expected = Inflection.of(annotation, source);
+                .transform(e -> Annotation.of(e, REPLACEMENT_SUBJECT_VERB_AGREEMENT))
+                .transform(a -> Inflection.of(a, source));
 
         GrammaticalErrorFilter filter =
-                new GrammaticalErrorFilter(Set.of(GrammaticalError.REPLACEMENT_SUBJECT_VERB_AGREEMENT));
+                new GrammaticalErrorFilter(Set.of(REPLACEMENT_SUBJECT_VERB_AGREEMENT));
 
         List<Inflection> inflections = errgent.generate(target.tokens(), filter);
 
