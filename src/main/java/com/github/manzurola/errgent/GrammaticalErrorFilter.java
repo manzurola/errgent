@@ -1,11 +1,10 @@
 package com.github.manzurola.errgent;
 
-import io.languagetoys.errant4j.core.Annotation;
 import io.languagetoys.errant4j.core.GrammaticalError;
 
 import java.util.Set;
 
-public class GrammaticalErrorFilter implements AnnotationFilter {
+public class GrammaticalErrorFilter implements InflectionFilter {
 
     private final Set<GrammaticalError> errors;
 
@@ -14,7 +13,7 @@ public class GrammaticalErrorFilter implements AnnotationFilter {
     }
 
     @Override
-    public boolean filter(Annotation annotation) {
-        return errors.contains(annotation.grammaticalError());
+    public boolean filter(Inflection inflection) {
+        return errors.contains(inflection.grammaticalError());
     }
 }

@@ -34,16 +34,19 @@ public class ErrgentTest {
                 .project(source.tokens(), target.tokens())
                 .transform(Annotation::of)
                 .setGrammaticalError(GrammaticalError.REPLACEMENT_SUBJECT_VERB_AGREEMENT);
-        Inflection expected = new Inflection(annotation);
+        Inflection expected = Inflection.of(annotation, source);
 
         GrammaticalErrorFilter filter =
                 new GrammaticalErrorFilter(Set.of(GrammaticalError.REPLACEMENT_SUBJECT_VERB_AGREEMENT));
 
         List<Inflection> inflections = errgent.generate(target.tokens(), filter);
-        Inflection actual = inflections.get(0);
 
+        Inflection actual = inflections.get(0);
         Assertions.assertEquals(expected, actual);
 
+        // assert expected text with error
+        Doc inflectedDoc = actual.doc();
+        Assertions.assertEquals(source, inflectedDoc);
 
     }
 }

@@ -9,7 +9,7 @@ public interface Errgent {
 
     Doc parse(String text);
 
-    List<Inflection> generate(List<Token> target, AnnotationFilter filter);
+    List<Inflection> generate(List<Token> target, InflectionFilter filter);
 
     List<Inflection> generate(List<Token> target);
 }

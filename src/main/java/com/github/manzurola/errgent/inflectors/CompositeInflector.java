@@ -7,11 +7,11 @@ import io.languagetoys.spacy4j.api.containers.Token;
 import java.util.List;
 import java.util.stream.Stream;
 
-public class ConcatenatingInflector implements Inflector {
+public class CompositeInflector implements Inflector {
 
     private final List<Inflector> inflectors;
 
-    public ConcatenatingInflector(Inflector... inflectors) {
+    public CompositeInflector(Inflector... inflectors) {
         this.inflectors = List.of(inflectors);
     }
 
