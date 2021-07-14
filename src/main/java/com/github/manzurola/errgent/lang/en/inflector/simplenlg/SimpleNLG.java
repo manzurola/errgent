@@ -1,4 +1,4 @@
-package com.github.manzurola.errgent.inflectors.simplenlg;
+package com.github.manzurola.errgent.lang.en.inflector.simplenlg;
 
 import io.languagetoys.spacy4j.api.containers.Token;
 import simplenlg.framework.NLGElement;

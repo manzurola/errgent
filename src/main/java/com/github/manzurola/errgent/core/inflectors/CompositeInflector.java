@@ -1,7 +1,5 @@
-package com.github.manzurola.errgent.inflectors;
+package com.github.manzurola.errgent.core.inflectors;
 
-import com.github.manzurola.errgent.InflectedToken;
-import com.github.manzurola.errgent.Inflector;
 import io.languagetoys.spacy4j.api.containers.Token;
 
 import java.util.List;

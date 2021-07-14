@@ -1,5 +1,6 @@
-package com.github.manzurola.errgent;
+package com.github.manzurola.errgent.core.filters;
 
+import com.github.manzurola.errgent.core.Inflection;
 import io.languagetoys.errant4j.core.GrammaticalError;
 
 import java.util.Set;

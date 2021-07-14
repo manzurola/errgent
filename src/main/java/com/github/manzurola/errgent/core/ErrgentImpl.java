@@ -1,9 +1,12 @@
-package com.github.manzurola.errgent;
+package com.github.manzurola.errgent.core;
 
-import com.github.manzurola.errgent.inflectors.CompositeInflector;
-import com.github.manzurola.errgent.inflectors.TokenRemovingInflector;
-import com.github.manzurola.errgent.inflectors.simplenlg.SimpleNLG;
-import com.github.manzurola.errgent.inflectors.simplenlg.SimpleNLGInflector;
+import com.github.manzurola.errgent.core.filters.InflectionFilter;
+import com.github.manzurola.errgent.core.inflectors.CompositeInflector;
+import com.github.manzurola.errgent.core.inflectors.InflectedToken;
+import com.github.manzurola.errgent.core.inflectors.Inflector;
+import com.github.manzurola.errgent.core.inflectors.TokenRemovingInflector;
+import com.github.manzurola.errgent.lang.en.inflector.simplenlg.SimpleNLG;
+import com.github.manzurola.errgent.lang.en.inflector.simplenlg.SimpleNLGInflector;
 import io.languagetoys.errant4j.core.Annotator;
 import io.languagetoys.spacy4j.api.containers.Doc;
 import io.languagetoys.spacy4j.api.containers.Token;

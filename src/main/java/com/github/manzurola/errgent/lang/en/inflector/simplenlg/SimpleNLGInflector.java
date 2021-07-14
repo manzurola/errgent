@@ -1,7 +1,7 @@
-package com.github.manzurola.errgent.inflectors.simplenlg;
+package com.github.manzurola.errgent.lang.en.inflector.simplenlg;
 
-import com.github.manzurola.errgent.InflectedToken;
-import com.github.manzurola.errgent.Inflector;
+import com.github.manzurola.errgent.core.inflectors.InflectedToken;
+import com.github.manzurola.errgent.core.inflectors.Inflector;
 import io.languagetoys.errant4j.lang.en.utils.wordlist.HunspellWordList;
 import io.languagetoys.errant4j.lang.en.utils.wordlist.WordList;
 import io.languagetoys.spacy4j.api.containers.Token;

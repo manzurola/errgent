@@ -1,10 +1,13 @@
-package com.github.manzurola.errgent;
+package com.github.manzurola.errgent.lang.en;
 
+import com.github.manzurola.errgent.core.Errgent;
+import com.github.manzurola.errgent.core.ErrgentImpl;
+import com.github.manzurola.errgent.core.filters.GrammaticalErrorFilter;
+import com.github.manzurola.errgent.core.Inflection;
 import io.languagetoys.aligner.edit.Edit;
 import io.languagetoys.errant4j.core.Annotation;
 import io.languagetoys.errant4j.core.Annotator;
 import io.languagetoys.errant4j.core.Errant;
-import io.languagetoys.errant4j.core.GrammaticalError;
 import io.languagetoys.spacy4j.adapters.corenlp.CoreNLPAdapter;
 import io.languagetoys.spacy4j.api.SpaCy;
 import io.languagetoys.spacy4j.api.containers.Doc;

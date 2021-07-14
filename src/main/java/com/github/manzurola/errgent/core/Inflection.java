@@ -1,4 +1,4 @@
-package com.github.manzurola.errgent;
+package com.github.manzurola.errgent.core;
 
 import io.languagetoys.aligner.edit.Edit;
 import io.languagetoys.errant4j.core.Annotation;

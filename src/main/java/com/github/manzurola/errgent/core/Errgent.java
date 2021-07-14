@@ -1,5 +1,6 @@
-package com.github.manzurola.errgent;
+package com.github.manzurola.errgent.core;
 
+import com.github.manzurola.errgent.core.filters.InflectionFilter;
 import io.languagetoys.spacy4j.api.containers.Doc;
 import io.languagetoys.spacy4j.api.containers.Token;
 
@@ -12,4 +13,5 @@ public interface Errgent {
     List<Inflection> generate(List<Token> target, InflectionFilter filter);
 
     List<Inflection> generate(List<Token> target);
+
 }
