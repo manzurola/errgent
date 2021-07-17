@@ -1,59 +1,55 @@
 package com.github.manzurola.errgent.core;
 
-import io.languagetoys.aligner.edit.Edit;
 import io.languagetoys.errant4j.core.Annotation;
-import io.languagetoys.errant4j.core.GrammaticalError;
 import io.languagetoys.spacy4j.api.containers.Doc;
-import io.languagetoys.spacy4j.api.containers.Token;
 
+import java.util.List;
 import java.util.Objects;
 
-public class Inflection {
+public final class Inflection {
 
-    private final Annotation annotation;
     private final Doc doc;
+    private final List<Annotation> errors;
 
-    private Inflection(Annotation annotation, Doc doc) {
-        this.annotation = Objects.requireNonNull(annotation);
+    private Inflection(Doc doc, List<Annotation> errors) {
         this.doc = Objects.requireNonNull(doc);
+        this.errors = List.copyOf(errors);
     }
 
-    public static Inflection of(Annotation annotation, Doc source) {
-        return new Inflection(annotation, source);
-    }
-
-    public GrammaticalError grammaticalError() {
-        return annotation.grammaticalError();
-    }
-
-    public Edit<Token> edit() {
-        return annotation.edit();
+    public static Inflection of(Doc doc, List<Annotation> errors) {
+        return new Inflection(doc, errors);
     }
 
     public final Doc doc() {
         return doc;
     }
 
+    public final List<Annotation> errors() {
+        return errors;
+    }
+
+    public final int numOfErrors() {
+        return errors.size();
+    }
+
     @Override
-    public boolean equals(Object o) {
+    public final boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Inflection that = (Inflection) o;
-        return annotation.equals(that.annotation) && doc.equals(that.doc);
+        return doc.equals(that.doc) && errors.equals(that.errors);
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(annotation, doc);
+    public final int hashCode() {
+        return Objects.hash(doc, errors);
     }
 
     @Override
-    public String toString() {
-        return "Inflection{" +
-               "annotation=" + annotation +
-               ", doc=" + doc +
+    public final String toString() {
+        return "InflectionNew{" +
+               "doc=" + doc.text() +
                '}';
     }
-
 
 }

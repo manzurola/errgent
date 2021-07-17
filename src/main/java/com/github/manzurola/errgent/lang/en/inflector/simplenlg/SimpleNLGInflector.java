@@ -1,9 +1,10 @@
 package com.github.manzurola.errgent.lang.en.inflector.simplenlg;
 
-import com.github.manzurola.errgent.core.inflectors.InflectedToken;
-import com.github.manzurola.errgent.core.inflectors.Inflector;
+import com.github.manzurola.errgent.core.DocFactory;
+import com.github.manzurola.errgent.core.inflect.Inflector;
 import io.languagetoys.errant4j.lang.en.utils.wordlist.HunspellWordList;
 import io.languagetoys.errant4j.lang.en.utils.wordlist.WordList;
+import io.languagetoys.spacy4j.api.containers.Doc;
 import io.languagetoys.spacy4j.api.containers.Token;
 import simplenlg.features.*;
 import simplenlg.framework.NLGElement;
@@ -24,7 +25,7 @@ public final class SimpleNLGInflector implements Inflector {
     }
 
     @Override
-    public final Stream<InflectedToken> inflect(Token token) {
+    public Stream<Doc> inflect(Token token, DocFactory docFactory) {
         List<NLGElement> inflections = new ArrayList<>();
         collectInflections(token, inflections::add);
         return inflections
@@ -32,9 +33,9 @@ public final class SimpleNLGInflector implements Inflector {
                 .parallel()
                 .map(simpleNLG::realise)
                 .filter(s -> !token.lower().equals(s))
-                .map(s -> new InflectedToken(token, s))
-                .filter(t -> wordList.contains(t.token().text()))
-                .distinct();
+                .filter(wordList::contains)
+                .distinct()
+                .flatMap(s -> docFactory.create(token, s));
     }
 
     protected void collectInflections(Token token, Consumer<NLGElement> results) {
@@ -61,6 +62,5 @@ public final class SimpleNLGInflector implements Inflector {
         results.accept(simpleNLG.createElement(token, Feature.TENSE, Tense.PRESENT));
         results.accept(simpleNLG.createElement(token, Feature.TENSE, Tense.FUTURE));
     }
-
 
 }

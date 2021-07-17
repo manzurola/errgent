@@ -14,7 +14,7 @@
         <maven.compiler.target>11</maven.compiler.target>
         <junit-jupiter.version>5.5.2</junit-jupiter.version>
         <logback.version>1.1.7</logback.version>
-        <errant4j.version>0.2.0</errant4j.version>
+        <errant4j.version>0.3.0</errant4j.version>
         <spacy4j.version>0.1.0</spacy4j.version>
         <simplenlg.version>4.5.0</simplenlg.version>
     </properties>

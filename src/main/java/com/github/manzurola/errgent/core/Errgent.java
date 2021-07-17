@@ -1,17 +1,38 @@
 package com.github.manzurola.errgent.core;
 
-import com.github.manzurola.errgent.core.filters.InflectionFilter;
-import io.languagetoys.spacy4j.api.containers.Doc;
-import io.languagetoys.spacy4j.api.containers.Token;
+import com.github.manzurola.errgent.core.inflect.Inflector;
+import com.github.manzurola.errgent.lang.en.inflector.EnInflector;
+import io.languagetoys.errant4j.core.Annotator;
 
-import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 
-public interface Errgent {
+public class Errgent {
 
-    Doc parse(String text);
+    private static final Map<String, Function<Annotator, Generator>> generators;
 
-    List<Inflection> generate(List<Token> target, InflectionFilter filter);
+    static {
+        generators = Map.of(
+                "en", annotator -> new GeneratorImpl(annotator, new EnInflector())
+        );
+    }
 
-    List<Inflection> generate(List<Token> target);
+    private Errgent() {
+    }
 
+    public static Generator enGenerator(Annotator annotator) {
+        return newGenerator(annotator, new EnInflector());
+    }
+
+    public static Generator newGenerator(Annotator annotator, Inflector inflector) {
+        return new GeneratorImpl(annotator, inflector);
+    }
+
+    public static Generator newGenerator(String language, Annotator annotator) {
+        if (generators.containsKey(language)) {
+            return generators.get(language).apply(annotator);
+        } else {
+            throw new IllegalArgumentException(String.format("Unsupported Errgent language %s", language));
+        }
+    }
 }
