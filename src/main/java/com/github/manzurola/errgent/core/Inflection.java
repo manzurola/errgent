@@ -47,7 +47,7 @@ public final class Inflection {
 
     @Override
     public final String toString() {
-        return "InflectionNew{" +
+        return "Inflection{" +
                "doc=" + doc.text() +
                '}';
     }
