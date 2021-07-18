@@ -11,4 +11,5 @@ public interface Generator {
     Doc parse(String text);
 
     List<Inflection> generate(List<Token> target, InflectionFilter filter);
+
 }

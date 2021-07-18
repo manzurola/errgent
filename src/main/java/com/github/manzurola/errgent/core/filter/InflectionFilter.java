@@ -9,11 +9,11 @@ public interface InflectionFilter {
 
     boolean filter(Inflection inflection);
 
-    static InflectionFilter ofAllErrors(GrammaticalError... errors) {
+    static InflectionFilter matchesAllErrors(GrammaticalError... errors) {
         return new AllErrorsInflectionFilter(Set.of(errors));
     }
 
-    static InflectionFilter ofAnyError(GrammaticalError... errors) {
+    static InflectionFilter matchesAnyError(GrammaticalError... errors) {
         return new AnyErrorInflectionFilter(Set.of(errors));
     }
 }

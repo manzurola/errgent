@@ -1,6 +1,6 @@
 package com.github.manzurola.errgent.lang.en.inflector;
 
-import com.github.manzurola.errgent.core.DocFactory;
+import com.github.manzurola.errgent.core.inflect.DocFactory;
 import com.github.manzurola.errgent.core.inflect.CompositeInflectorNew;
 import com.github.manzurola.errgent.core.inflect.Inflector;
 import com.github.manzurola.errgent.core.inflect.TokenRemovingInflector;

@@ -1,6 +1,7 @@
 package com.github.manzurola.errgent.core;
 
 import com.github.manzurola.errgent.core.filter.InflectionFilter;
+import com.github.manzurola.errgent.core.inflect.DocFactory;
 import com.github.manzurola.errgent.core.inflect.Inflector;
 import io.languagetoys.errant4j.core.Annotation;
 import io.languagetoys.errant4j.core.Annotator;
@@ -43,7 +44,6 @@ public class GeneratorImpl implements Generator {
                 })
                 .filter(filter::filter)
                 .collect(Collectors.toList());
-
     }
 
 }

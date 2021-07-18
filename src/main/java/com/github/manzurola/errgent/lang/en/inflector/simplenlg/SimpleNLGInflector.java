@@ -1,6 +1,6 @@
 package com.github.manzurola.errgent.lang.en.inflector.simplenlg;
 
-import com.github.manzurola.errgent.core.DocFactory;
+import com.github.manzurola.errgent.core.inflect.DocFactory;
 import com.github.manzurola.errgent.core.inflect.Inflector;
 import io.languagetoys.errant4j.lang.en.utils.wordlist.HunspellWordList;
 import io.languagetoys.errant4j.lang.en.utils.wordlist.WordList;
