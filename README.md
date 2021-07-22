@@ -1,42 +1,37 @@
-# ErrGenT - Grammatical Error Generation Toolkit 🤖
+# Errgent - Grammatical Error Generation Toolkit 🤖
 
-ErrGenT generates grammatically incorrect variances of a valid English sentence. 
-
-
-
-![maven](https://github.com/manzurola/errgent/actions/workflows/maven.yml/badge.svg)
+Errgent generates grammatically incorrect variances of a valid English sentence. 
 
 ## Prerequisits
 
 Before you begin, ensure you have met the following requirements:
 
 * You have Java 11 installed.
-* TODO errant
-* TODO spacy
+* You have access to Github Packages Maven registry as described [here](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-apache-maven-registry#authenticating-to-github-packages).
 
 ## Installing Errgent
 
-Available as a Maven dependency via [GitHub Packages](https://github.com/orgs/LanguageToys/packages?repo_name=aligner).  
-
-See GitHub documentation on [installing a package](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-apache-maven-registry#installing-a-package).
+Add this to the dependencies section of your `pom.xml`:
+```xml
+<dependency>
+  <groupId>com.github.manzurola</groupId>
+  <artifactId>errgent</artifactId>
+  <version>0.1.0</version>
+</dependency>
+```
 
 ## Using Errgent
 
-To use Aligner in code, follow these steps:
+To use Errgent in code, follow these steps:
 
 ```java
-TODO
 ```
 
-You can also customise an Aligner with your own metrics:
-
-```java
-TODO
-```
+Errgent is currently available only for English.
 
 ## Contributions
 
-To contribute to Aligner, follow these steps:
+To contribute to Errgent, follow these steps:
 
 1. Fork this repository.
 2. Create a branch: `git checkout -b <branch_name>`.
@@ -59,4 +54,4 @@ If you want to contact me you can reach me at [guy.manzurola@gmail.com](guy.manz
 
 ## License
         
-This project uses the following license: [MIT](https://github.com/LanguageToys/aligner/blob/555fd35e842feb8d899d7197a1965ea01bc74c95/LICENSE).
+This project uses the following license: [MIT](https://github.com/manzurola/errgent/blob/main/LICENSE).
