@@ -1,7 +1,7 @@
 package com.github.manzurola.errgent.lang.en.inflector;
 
 import com.github.manzurola.errgent.core.inflect.DocFactory;
-import com.github.manzurola.errgent.core.inflect.CompositeInflectorNew;
+import com.github.manzurola.errgent.core.inflect.CompositeInflector;
 import com.github.manzurola.errgent.core.inflect.Inflector;
 import com.github.manzurola.errgent.core.inflect.TokenRemovingInflector;
 import com.github.manzurola.errgent.lang.en.inflector.simplenlg.SimpleNLG;
@@ -16,8 +16,8 @@ public final class EnInflector implements Inflector {
     private final Inflector impl;
 
     public EnInflector() {
-        this.impl = new CompositeInflectorNew(new SimpleNLGInflector(new SimpleNLG()),
-                                              new TokenRemovingInflector());
+        this.impl = new CompositeInflector(new SimpleNLGInflector(new SimpleNLG()),
+                                           new TokenRemovingInflector());
     }
 
     @Override
