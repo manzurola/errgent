@@ -1,7 +1,6 @@
 # ErrGenT - Grammatical Error Generation Toolkit 🤖
 
-ErrGenT generates grammatically incorrect variances of a valid English sentence. 
-
+ErrGenT generates grammatically incorrect variances of a valid English sentence. Given a grammatically correct sentence and a list of desired grammatical errors, Errgent will inflect every token to produce an invalid sentence, then filter out sentences containing one or more specified errors.
 
 
 ![maven](https://github.com/manzurola/errgent/actions/workflows/maven.yml/badge.svg)
