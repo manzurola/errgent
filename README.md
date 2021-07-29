@@ -11,8 +11,8 @@ ErrGenT generates grammatically incorrect variances of a valid English sentence.
 Before you begin, ensure you have met the following requirements:
 
 * You have Java 11 installed.
-* TODO errant
-* TODO spacy
+* You have access to Github Packages Maven registry as described [here](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-apache-maven-registry#authenticating-to-github-packages).
+* You have installed spaCy4j as described [here](https://github.com/manzurola/spaCy4j#installing-spacy4j)
 
 ## Installing Errgent
 
@@ -22,13 +22,7 @@ See GitHub documentation on [installing a package](https://docs.github.com/en/pa
 
 ## Using Errgent
 
-To use Aligner in code, follow these steps:
-
-```java
-TODO
-```
-
-You can also customise an Aligner with your own metrics:
+To use Errgent in code, follow these steps:
 
 ```java
 TODO
