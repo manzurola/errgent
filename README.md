@@ -15,9 +15,14 @@ Before you begin, ensure you have met the following requirements:
 
 ## Installing Errgent
 
-Available as a Maven dependency via [GitHub Packages](https://github.com/orgs/LanguageToys/packages?repo_name=aligner).  
-
-See GitHub documentation on [installing a package](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-apache-maven-registry#installing-a-package).
+Add this to the dependencies section of your `pom.xml`:
+```xml
+<dependency>
+  <groupId>com.github.manzurola</groupId>
+  <artifactId>errgent</artifactId>
+  <version>0.1.0</version>
+</dependency>
+```
 
 ## Using Errgent
 
