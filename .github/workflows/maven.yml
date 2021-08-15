@@ -23,5 +23,5 @@ jobs:
       - name: Build with Maven
         run: mvn -s $GITHUB_WORKSPACE/.github/workflows/settings.xml -B package --file pom.xml
         env:
-          USER_NAME: ${{ secrets.USER_NAME }}
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          GH_USERNAME: ${{ secrets.GH_USERNAME }}
+          GH_PAT: ${{ secrets.GH_PAT }}
