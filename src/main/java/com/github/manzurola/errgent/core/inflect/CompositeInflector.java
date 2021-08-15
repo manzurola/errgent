@@ -1,6 +1,5 @@
 package com.github.manzurola.errgent.core.inflect;
 
-import com.github.manzurola.spacy4j.api.containers.Doc;
 import com.github.manzurola.spacy4j.api.containers.Token;
 
 import java.util.List;
@@ -15,10 +14,10 @@ public class CompositeInflector implements Inflector {
     }
 
     @Override
-    public Stream<Doc> inflect(Token token, DocFactory docFactory) {
+    public Stream<Inflection> inflect(Token token, InflectionFactory inflectionFactory) {
         return inflectors
                 .stream()
                 .parallel()
-                .flatMap(inflector -> inflector.inflect(token, docFactory));
+                .flatMap(inflector -> inflector.inflect(token, inflectionFactory));
     }
 }

@@ -1,4 +1,4 @@
-package com.github.manzurola.errgent.core;
+package com.github.manzurola.errgent.core.inflect;
 
 import com.github.manzurola.errant4j.core.Annotation;
 import com.github.manzurola.spacy4j.api.containers.Doc;

@@ -1,12 +1,9 @@
 package com.github.manzurola.errgent.lang.en.inflector;
 
-import com.github.manzurola.errgent.core.inflect.DocFactory;
-import com.github.manzurola.errgent.core.inflect.CompositeInflector;
-import com.github.manzurola.errgent.core.inflect.Inflector;
-import com.github.manzurola.errgent.core.inflect.TokenRemovingInflector;
+import com.github.manzurola.errgent.core.inflect.Inflection;
+import com.github.manzurola.errgent.core.inflect.*;
 import com.github.manzurola.errgent.lang.en.inflector.simplenlg.SimpleNLG;
 import com.github.manzurola.errgent.lang.en.inflector.simplenlg.SimpleNLGInflector;
-import com.github.manzurola.spacy4j.api.containers.Doc;
 import com.github.manzurola.spacy4j.api.containers.Token;
 
 import java.util.stream.Stream;
@@ -21,7 +18,7 @@ public final class EnInflector implements Inflector {
     }
 
     @Override
-    public Stream<Doc> inflect(Token token, DocFactory docFactory) {
-        return impl.inflect(token, docFactory);
+    public Stream<Inflection> inflect(Token token, InflectionFactory inflectionFactory) {
+        return impl.inflect(token, inflectionFactory);
     }
 }

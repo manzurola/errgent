@@ -1,11 +1,9 @@
 package com.github.manzurola.errgent.lang.en;
 
-import com.github.manzurola.errgent.core.Generator;
-import com.github.manzurola.errgent.core.GeneratorImpl;
-import com.github.manzurola.errgent.core.Inflection;
-import com.github.manzurola.errgent.lang.en.inflector.EnInflector;
 import com.github.manzurola.errant4j.core.Annotator;
 import com.github.manzurola.errant4j.core.Errant;
+import com.github.manzurola.errgent.core.Errgent;
+import com.github.manzurola.errgent.core.Generator;
 import com.github.manzurola.spacy4j.adapters.corenlp.CoreNLPAdapter;
 import com.github.manzurola.spacy4j.api.SpaCy;
 import com.github.manzurola.spacy4j.api.containers.Doc;
@@ -19,16 +17,19 @@ public class UsageExamples {
 
     @Test
     void generateSingleError() {
+        // Get a spaCy instance
         SpaCy spacy = SpaCy.create(CoreNLPAdapter.create());
+        // Create an English error annotator
         Annotator annotator = Errant.newAnnotator("en", spacy);
-
-        Generator generator = new GeneratorImpl(annotator, new EnInflector());
+        // Create an English error generator
+        Generator generator = Errgent.newGenerator("en", annotator);
 
         Doc target = generator.parse("My friends like to have fun.");
 
-        List<Inflection> inflections = generator.generate(target, List.of(REPLACEMENT_SUBJECT_VERB_AGREEMENT));
-        for (Inflection inflection : inflections) {
-            System.out.println(inflection.doc().text());
+        // Generate all documents that contain the specified error
+        List<Doc> inflections = generator.generate(target, REPLACEMENT_SUBJECT_VERB_AGREEMENT);
+        for (Doc inflection : inflections) {
+            System.out.println(inflection.text());
         }
     }
 }

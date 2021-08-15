@@ -1,6 +1,14 @@
 # Errgent - Grammatical Error Generation Toolkit 🤖
 
-Errgent generates grammatically incorrect variances of a valid English sentence. 
+Errgent generates grammatically incorrect variances of a valid English sentence.
+
+## How It Works
+
+We first create variances of the document by inflecting each token in the document. For English, we use SimpleNLG to create inflections in a brute force manner. 
+
+We then process each inflected doc by Errant, which annotates each doc pair (inflected vs original) for grammatical errors.
+
+Finally, we filter each pair to match those which contain the specified grammatical error. 
 
 ## Prerequisits
 
@@ -25,6 +33,21 @@ Add this to the dependencies section of your `pom.xml`:
 To use Errgent in code, follow these steps:
 
 ```java
+// Get a spaCy instance
+SpaCy spacy = SpaCy.create(CoreNLPAdapter.create());
+// Create an English error annotator
+Annotator annotator = Errant.newAnnotator("en", spacy);
+// Create an English error generator
+Generator generator = Errgent.newGenerator("en", annotator);
+
+Doc target = generator.parse("My friends like to have fun.");
+
+// Generate all documents that contain the specified error 
+// (will contain "My friends like to has fun.")
+List<Doc> inflections = generator.generate(target, REPLACEMENT_SUBJECT_VERB_AGREEMENT);
+for (Doc inflection : inflections) {
+    System.out.println(inflection.text());
+}
 ```
 
 Errgent is currently available only for English.

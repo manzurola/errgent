@@ -19,21 +19,12 @@ public interface Generator {
     Doc parse(String text);
 
     /**
-     * Generate all possible grammatical errors from given doc.
+     * Generate inflected docs with the specified grammatical error.
      *
      * @param target the target from which grammatically incorrect variances will be produced.
-     * @return a list of {@link Inflection} objects containing the newly inflected document and the list of grammatical
-     * errors within it.
+     * @return a list of {@link Doc} objects containing the specified grammatical error. Returns an empty list if no
+     * matching errors could be produced.
      */
-    List<Inflection> generate(Doc target);
-
-    /**
-     * Generate grammatical errors contained in {@code errors} from given doc.
-     *
-     * @param target the target from which grammatically incorrect variances will be produced.
-     * @return a list of {@link Inflection} objects containing the newly inflected document and the list of grammatical
-     * errors within it.
-     */
-    List<Inflection> generate(Doc target, List<GrammaticalError> errors);
+    List<Doc> generate(Doc target, GrammaticalError error);
 
 }
