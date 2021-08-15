@@ -1,11 +1,11 @@
 package com.github.manzurola.errgent.lang.en.inflector.simplenlg;
 
-import com.github.manzurola.errgent.core.inflect.DocFactory;
+import com.github.manzurola.errgent.core.inflect.Inflection;
+import com.github.manzurola.errgent.core.inflect.InflectionFactory;
 import com.github.manzurola.errgent.core.inflect.Inflector;
-import io.languagetoys.errant4j.lang.en.utils.wordlist.HunspellWordList;
-import io.languagetoys.errant4j.lang.en.utils.wordlist.WordList;
-import io.languagetoys.spacy4j.api.containers.Doc;
-import io.languagetoys.spacy4j.api.containers.Token;
+import com.github.manzurola.errant4j.lang.en.utils.wordlist.HunspellWordList;
+import com.github.manzurola.errant4j.lang.en.utils.wordlist.WordList;
+import com.github.manzurola.spacy4j.api.containers.Token;
 import simplenlg.features.*;
 import simplenlg.framework.NLGElement;
 
@@ -25,7 +25,7 @@ public final class SimpleNLGInflector implements Inflector {
     }
 
     @Override
-    public Stream<Doc> inflect(Token token, DocFactory docFactory) {
+    public Stream<Inflection> inflect(Token token, InflectionFactory inflectionFactory) {
         List<NLGElement> inflections = new ArrayList<>();
         collectInflections(token, inflections::add);
         return inflections
@@ -35,7 +35,7 @@ public final class SimpleNLGInflector implements Inflector {
                 .filter(s -> !token.lower().equals(s))
                 .filter(wordList::contains)
                 .distinct()
-                .flatMap(s -> docFactory.create(token, s));
+                .flatMap(substitute -> inflectionFactory.substitute(token, substitute));
     }
 
     protected void collectInflections(Token token, Consumer<NLGElement> results) {

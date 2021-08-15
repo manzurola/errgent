@@ -1,7 +1,7 @@
-package com.github.manzurola.errgent.core;
+package com.github.manzurola.errgent.core.inflect;
 
-import io.languagetoys.errant4j.core.Annotation;
-import io.languagetoys.spacy4j.api.containers.Doc;
+import com.github.manzurola.errant4j.core.Annotation;
+import com.github.manzurola.spacy4j.api.containers.Doc;
 
 import java.util.List;
 import java.util.Objects;
