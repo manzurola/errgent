@@ -36,11 +36,14 @@ To use Errgent in code, follow these steps:
 ```java
 // Get a spaCy instance
 SpaCy spacy = SpaCy.create(CoreNLPAdapter.create());
+
 // Create an English error annotator
 Annotator annotator = Errant.newAnnotator("en", spacy);
+
 // Create an English error generator
 Generator generator = Errgent.newGenerator("en", annotator);
 
+// parse the doc (a utilty method)
 Doc target = generator.parse("My friends like to have fun.");
 
 // Generate all documents that contain the specified error 
