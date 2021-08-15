@@ -6,8 +6,8 @@ import com.github.manzurola.errgent.core.inflect.Inflector;
 import com.github.manzurola.errgent.core.inflect.TokenRemovingInflector;
 import com.github.manzurola.errgent.lang.en.inflector.simplenlg.SimpleNLG;
 import com.github.manzurola.errgent.lang.en.inflector.simplenlg.SimpleNLGInflector;
-import io.languagetoys.spacy4j.api.containers.Doc;
-import io.languagetoys.spacy4j.api.containers.Token;
+import com.github.manzurola.spacy4j.api.containers.Doc;
+import com.github.manzurola.spacy4j.api.containers.Token;
 
 import java.util.stream.Stream;
 

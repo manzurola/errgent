@@ -2,12 +2,12 @@ package com.github.manzurola.errgent.core;
 
 import com.github.manzurola.errgent.core.inflect.Inflector;
 import com.github.manzurola.errgent.lang.en.inflector.EnInflector;
-import io.languagetoys.errant4j.core.Annotator;
+import com.github.manzurola.errant4j.core.Annotator;
 
 import java.util.Map;
 import java.util.function.Function;
 
-public class Errgent {
+public final class Errgent {
 
     private static final Map<String, Function<Annotator, Generator>> generators;
 

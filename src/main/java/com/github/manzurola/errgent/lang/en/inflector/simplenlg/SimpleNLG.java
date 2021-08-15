@@ -1,6 +1,6 @@
 package com.github.manzurola.errgent.lang.en.inflector.simplenlg;
 
-import io.languagetoys.spacy4j.api.containers.Token;
+import com.github.manzurola.spacy4j.api.containers.Token;
 import simplenlg.framework.NLGElement;
 import simplenlg.framework.NLGFactory;
 import simplenlg.lexicon.Lexicon;
@@ -9,7 +9,7 @@ import simplenlg.phrasespec.SPhraseSpec;
 import simplenlg.phrasespec.VPPhraseSpec;
 import simplenlg.realiser.english.Realiser;
 
-import static io.languagetoys.errant4j.lang.en.classify.rules.common.Predicates.*;
+import static com.github.manzurola.errant4j.lang.en.classify.rules.common.Predicates.*;
 
 public final class SimpleNLG {
 

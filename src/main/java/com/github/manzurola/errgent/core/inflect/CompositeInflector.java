@@ -1,7 +1,7 @@
 package com.github.manzurola.errgent.core.inflect;
 
-import io.languagetoys.spacy4j.api.containers.Doc;
-import io.languagetoys.spacy4j.api.containers.Token;
+import com.github.manzurola.spacy4j.api.containers.Doc;
+import com.github.manzurola.spacy4j.api.containers.Token;
 
 import java.util.List;
 import java.util.stream.Stream;

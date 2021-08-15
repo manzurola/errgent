@@ -1,19 +1,19 @@
 package com.github.manzurola.errgent.core;
 
-import com.github.manzurola.errgent.core.filter.InflectionFilter;
+import com.github.manzurola.errant4j.core.Annotation;
+import com.github.manzurola.errant4j.core.Annotator;
+import com.github.manzurola.errant4j.core.GrammaticalError;
 import com.github.manzurola.errgent.core.inflect.DocFactory;
 import com.github.manzurola.errgent.core.inflect.Inflector;
-import io.languagetoys.errant4j.core.Annotation;
-import io.languagetoys.errant4j.core.Annotator;
-import io.languagetoys.spacy4j.api.containers.Doc;
-import io.languagetoys.spacy4j.api.containers.Token;
+import com.github.manzurola.spacy4j.api.containers.Doc;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class GeneratorImpl implements Generator {
+public final class GeneratorImpl implements Generator {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final Annotator annotator;
     private final Inflector inflector;
@@ -24,26 +24,37 @@ public class GeneratorImpl implements Generator {
     }
 
     @Override
-    public Doc parse(String text) {
+    public final Doc parse(String text) {
         return annotator.parse(text);
     }
 
     @Override
-    public List<Inflection> generate(List<Token> target, InflectionFilter filter) {
+    public List<Inflection> generate(Doc target) {
+        return generate(target, List.of(GrammaticalError.values()));
+    }
+
+    @Override
+    public final List<Inflection> generate(Doc target, List<GrammaticalError> errors) {
         DocFactory docFactory = new DocFactory(annotator);
         return target
                 .stream()
                 .parallel()
                 .flatMap(token -> inflector.inflect(token, docFactory))
                 .map(inflectedDoc -> {
-                    List<Annotation> errors = annotator.annotate(inflectedDoc.tokens(), target)
+                    List<Annotation> annotations = annotator.annotate(inflectedDoc.tokens(), target.tokens())
                             .stream()
                             .filter(annotation -> !annotation.grammaticalError().isNone())
                             .collect(Collectors.toList());
-                    return Inflection.of(inflectedDoc, errors);
+                    return Inflection.of(inflectedDoc, annotations);
                 })
-                .filter(filter::filter)
+                .filter(filter(errors))
                 .collect(Collectors.toList());
+    }
+
+    private Predicate<Inflection> filter(List<GrammaticalError> errors) {
+        return inflection -> inflection.errors()
+                .stream()
+                .anyMatch(annotation -> errors.contains(annotation.grammaticalError()));
     }
 
 }

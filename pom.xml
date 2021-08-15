@@ -15,13 +15,25 @@
         <junit-jupiter.version>5.5.2</junit-jupiter.version>
         <logback.version>1.1.7</logback.version>
         <errant4j.version>0.3.0</errant4j.version>
-        <spacy4j.version>0.1.0</spacy4j.version>
+        <spacy4j.version>0.2.0</spacy4j.version>
         <simplenlg.version>4.5.0</simplenlg.version>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>io.languagetoys</groupId>
+            <groupId>com.github.manzurola</groupId>
+            <artifactId>spacy4j-adapters-corenlp</artifactId>
+            <version>${spacy4j.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.manzurola</groupId>
+            <artifactId>spacy4j-adapters-spacy-server</artifactId>
+            <version>${spacy4j.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.manzurola</groupId>
             <artifactId>errant4j</artifactId>
             <version>${errant4j.version}</version>
         </dependency>
@@ -34,18 +46,6 @@
             <groupId>uk.ac.abdn</groupId>
             <artifactId>SimpleNLG</artifactId>
             <version>${simplenlg.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.languagetoys</groupId>
-            <artifactId>spacy4j-adapters-corenlp</artifactId>
-            <version>${spacy4j.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.languagetoys</groupId>
-            <artifactId>spacy4j-adapters-spacy-server</artifactId>
-            <version>${spacy4j.version}</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>

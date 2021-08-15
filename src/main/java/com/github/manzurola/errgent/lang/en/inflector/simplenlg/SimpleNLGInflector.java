@@ -2,10 +2,10 @@ package com.github.manzurola.errgent.lang.en.inflector.simplenlg;
 
 import com.github.manzurola.errgent.core.inflect.DocFactory;
 import com.github.manzurola.errgent.core.inflect.Inflector;
-import io.languagetoys.errant4j.lang.en.utils.wordlist.HunspellWordList;
-import io.languagetoys.errant4j.lang.en.utils.wordlist.WordList;
-import io.languagetoys.spacy4j.api.containers.Doc;
-import io.languagetoys.spacy4j.api.containers.Token;
+import com.github.manzurola.errant4j.lang.en.utils.wordlist.HunspellWordList;
+import com.github.manzurola.errant4j.lang.en.utils.wordlist.WordList;
+import com.github.manzurola.spacy4j.api.containers.Doc;
+import com.github.manzurola.spacy4j.api.containers.Token;
 import simplenlg.features.*;
 import simplenlg.framework.NLGElement;
 
