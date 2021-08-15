@@ -19,6 +19,14 @@
         <simplenlg.version>4.5.0</simplenlg.version>
     </properties>
 
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>errant4j</name>
+            <url>https://maven.pkg.github.com/manzurola/errgent</url>
+        </repository>
+    </distributionManagement>
+
     <dependencies>
         <dependency>
             <groupId>com.github.manzurola</groupId>
