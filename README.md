@@ -1,5 +1,7 @@
 # Errgent - Grammatical Error Generation Toolkit 🤖
 
+![maven](https://github.com/manzurola/errgent/actions/workflows/maven.yml/badge.svg)
+
 Errgent generates grammatically incorrect variances of a valid English sentence.
 
 ## How It Works
