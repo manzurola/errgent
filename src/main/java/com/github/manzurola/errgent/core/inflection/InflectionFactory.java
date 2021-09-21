@@ -1,9 +1,8 @@
-package com.github.manzurola.errgent.core.inflect;
+package com.github.manzurola.errgent.core.inflection;
 
 import com.github.manzurola.errant4j.core.Annotation;
 import com.github.manzurola.errant4j.core.Annotator;
 import com.github.manzurola.spacy4j.api.containers.Doc;
-import com.github.manzurola.spacy4j.api.containers.Span;
 import com.github.manzurola.spacy4j.api.containers.Token;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

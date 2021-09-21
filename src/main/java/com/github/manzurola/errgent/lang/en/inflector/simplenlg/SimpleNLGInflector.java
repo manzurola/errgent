@@ -1,8 +1,8 @@
 package com.github.manzurola.errgent.lang.en.inflector.simplenlg;
 
-import com.github.manzurola.errgent.core.inflect.Inflection;
-import com.github.manzurola.errgent.core.inflect.InflectionFactory;
-import com.github.manzurola.errgent.core.inflect.Inflector;
+import com.github.manzurola.errgent.core.inflection.Inflection;
+import com.github.manzurola.errgent.core.inflection.InflectionFactory;
+import com.github.manzurola.errgent.core.inflection.inflectors.Inflector;
 import com.github.manzurola.errant4j.lang.en.utils.wordlist.HunspellWordList;
 import com.github.manzurola.errant4j.lang.en.utils.wordlist.WordList;
 import com.github.manzurola.spacy4j.api.containers.Token;

@@ -2,15 +2,15 @@ package com.github.manzurola.errgent.core;
 
 import com.github.manzurola.errant4j.core.Annotator;
 import com.github.manzurola.errant4j.core.GrammaticalError;
-import com.github.manzurola.errgent.core.inflect.Inflection;
-import com.github.manzurola.errgent.core.inflect.InflectionFactory;
-import com.github.manzurola.errgent.core.inflect.Inflector;
+import com.github.manzurola.errgent.core.inflection.Inflection;
+import com.github.manzurola.errgent.core.inflection.InflectionFactory;
+import com.github.manzurola.errgent.core.inflection.InflectionFilter;
+import com.github.manzurola.errgent.core.inflection.inflectors.Inflector;
 import com.github.manzurola.spacy4j.api.containers.Doc;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public final class GeneratorImpl implements Generator {
@@ -29,21 +29,28 @@ public final class GeneratorImpl implements Generator {
     }
 
     @Override
-    public List<Doc> generate(Doc target, GrammaticalError error) {
+    public List<Inflection> generateSingleError(Doc target, GrammaticalError error) {
+        return generateAndFilter(target, InflectionFilter.matchExactErrors(List.of(error)));
+    }
+
+    @Override
+    public List<Inflection> generateAnyError(Doc target, List<GrammaticalError> errors) {
+        return generateAndFilter(target, InflectionFilter.matchAnyError(errors));
+    }
+
+    @Override
+    public List<Inflection> generateAllErrors(Doc target, List<GrammaticalError> errors) {
+        return generateAndFilter(target, InflectionFilter.matchAllErrors(errors));
+    }
+
+    public List<Inflection> generateAndFilter(Doc target, InflectionFilter filter) {
         InflectionFactory inflectionFactory = new InflectionFactory(annotator, target);
         return target
                 .stream()
                 .parallel()
                 .flatMap(token -> inflector.inflect(token, inflectionFactory))
-                .filter(filter(List.of(error)))
-                .map(Inflection::doc)
+                .filter(filter)
                 .collect(Collectors.toList());
-    }
-
-    private Predicate<Inflection> filter(List<GrammaticalError> errors) {
-        return inflection -> inflection.errors()
-                .stream()
-                .anyMatch(annotation -> errors.contains(annotation.grammaticalError()));
     }
 
 }

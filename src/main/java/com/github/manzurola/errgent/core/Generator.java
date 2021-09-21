@@ -1,6 +1,7 @@
 package com.github.manzurola.errgent.core;
 
 import com.github.manzurola.errant4j.core.GrammaticalError;
+import com.github.manzurola.errgent.core.inflection.Inflection;
 import com.github.manzurola.spacy4j.api.containers.Doc;
 
 import java.util.List;
@@ -25,6 +26,10 @@ public interface Generator {
      * @return a list of {@link Doc} objects containing the specified grammatical error. Returns an empty list if no
      * matching errors could be produced.
      */
-    List<Doc> generate(Doc target, GrammaticalError error);
+    List<Inflection> generateSingleError(Doc target, GrammaticalError error);
+
+    List<Inflection> generateAnyError(Doc target, List<GrammaticalError> errors);
+
+    List<Inflection> generateAllErrors(Doc target, List<GrammaticalError> errors);
 
 }

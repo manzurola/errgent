@@ -1,4 +1,4 @@
-package com.github.manzurola.errgent.core.inflect;
+package com.github.manzurola.errgent.core.inflection;
 
 import com.github.manzurola.errant4j.core.Annotation;
 import com.github.manzurola.spacy4j.api.containers.Doc;
@@ -24,6 +24,10 @@ public final class Inflection {
         return doc;
     }
 
+    public final String text() {
+        return doc.text();
+    }
+
     public final List<Annotation> errors() {
         return errors;
     }
@@ -47,9 +51,7 @@ public final class Inflection {
 
     @Override
     public final String toString() {
-        return "Inflection{" +
-               "doc=" + doc.text() +
-               '}';
+        return doc.text();
     }
 
 }
