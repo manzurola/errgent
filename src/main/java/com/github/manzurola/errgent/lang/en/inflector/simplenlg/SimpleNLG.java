@@ -27,10 +27,6 @@ public final class SimpleNLG {
     }
 
     public final NLGElement createElement(Token token) {
-        return createElementFromToken(token);
-    }
-
-    private NLGElement createElementFromToken(Token token) {
         NLGElement result;
         String word = token.text();
 
