@@ -1,6 +1,7 @@
 package com.github.manzurola.errgent.core;
 
 import com.github.manzurola.errant4j.core.Annotator;
+import com.github.manzurola.errgent.lang.en.inflector.EnInflectionFilter;
 import com.github.manzurola.errgent.lang.en.inflector.EnInflector;
 
 import java.util.Map;
@@ -12,7 +13,7 @@ public final class Errgent {
 
     static {
         generators = Map.of(
-                "en", annotator -> new GeneratorImpl(annotator, new EnInflector())
+                "en", annotator -> new GeneratorImpl(annotator, new EnInflector(), new EnInflectionFilter())
         );
     }
 

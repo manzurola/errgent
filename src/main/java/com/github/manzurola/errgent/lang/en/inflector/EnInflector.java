@@ -1,27 +1,98 @@
 package com.github.manzurola.errgent.lang.en.inflector;
 
 import com.github.manzurola.errgent.core.inflection.Inflection;
-import com.github.manzurola.errgent.core.inflection.*;
-import com.github.manzurola.errgent.core.inflection.inflectors.CompositeInflector;
-import com.github.manzurola.errgent.core.inflection.inflectors.Inflector;
-import com.github.manzurola.errgent.core.inflection.inflectors.TokenRemovingInflector;
-import com.github.manzurola.errgent.lang.en.inflector.simplenlg.SimpleNLG;
-import com.github.manzurola.errgent.lang.en.inflector.simplenlg.SimpleNLGInflector;
+import com.github.manzurola.errgent.core.inflection.Inflector;
 import com.github.manzurola.spacy4j.api.containers.Token;
+import simplenlg.features.*;
+import simplenlg.framework.NLGElement;
+import simplenlg.framework.NLGFactory;
+import simplenlg.lexicon.Lexicon;
+import simplenlg.phrasespec.NPPhraseSpec;
+import simplenlg.phrasespec.SPhraseSpec;
+import simplenlg.phrasespec.VPPhraseSpec;
+import simplenlg.realiser.english.Realiser;
 
+import java.util.List;
 import java.util.stream.Stream;
+
+import static com.github.manzurola.errant4j.lang.en.classify.rules.common.Predicates.*;
 
 public final class EnInflector implements Inflector {
 
-    private final Inflector impl;
-
-    public EnInflector() {
-        this.impl = new CompositeInflector(new SimpleNLGInflector(new SimpleNLG()),
-                                           new TokenRemovingInflector());
-    }
+    private final NLGFactory nlgFactory = new NLGFactory(Lexicon.getDefaultLexicon());
+    private final Realiser realiser = new Realiser();
 
     @Override
-    public Stream<Inflection> inflect(Token token, InflectionFactory inflectionFactory) {
-        return impl.inflect(token, inflectionFactory);
+    public Stream<Inflection> inflectToken(Token token) {
+        Stream<Inflection> substitutions = getNlgElements(token)
+                .stream()
+                .map(nlgElement -> realiser.realise(nlgElement).getRealisation())
+                .map(inflectedText -> Inflection.substituteToken(token, inflectedText));
+        return Stream.concat(
+                Stream.of(Inflection.deleteToken(token)),
+                substitutions
+        );
+    }
+
+    protected List<NLGElement> getNlgElements(Token token) {
+        return List.of(
+                createNLGElement(token, Feature.IS_COMPARATIVE, true),
+                createNLGElement(token, Feature.IS_COMPARATIVE, false),
+                createNLGElement(token, Feature.NUMBER, NumberAgreement.SINGULAR),
+                createNLGElement(token, Feature.NUMBER, NumberAgreement.PLURAL),
+                createNLGElement(token, Feature.PERSON, Person.FIRST),
+                createNLGElement(token, Feature.PERSON, Person.SECOND),
+                createNLGElement(token, Feature.PERSON, Person.THIRD),
+                createNLGElement(token, Feature.POSSESSIVE, true),
+                createNLGElement(token, Feature.POSSESSIVE, false),
+                createNLGElement(token, Feature.PROGRESSIVE, true),
+                createNLGElement(token, Feature.IS_SUPERLATIVE, true),
+                createNLGElement(token, Feature.IS_SUPERLATIVE, false),
+                createNLGElement(token, Feature.FORM, Form.BARE_INFINITIVE),
+                createNLGElement(token, Feature.FORM, Form.GERUND),
+                createNLGElement(token, Feature.FORM, Form.IMPERATIVE),
+                createNLGElement(token, Feature.FORM, Form.INFINITIVE),
+                createNLGElement(token, Feature.FORM, Form.NORMAL),
+                createNLGElement(token, Feature.FORM, Form.PAST_PARTICIPLE),
+                createNLGElement(token, Feature.FORM, Form.PRESENT_PARTICIPLE),
+                createNLGElement(token, Feature.TENSE, Tense.PAST),
+                createNLGElement(token, Feature.TENSE, Tense.PRESENT),
+                createNLGElement(token, Feature.TENSE, Tense.FUTURE)
+        );
+    }
+
+    private NLGElement createNLGElement(Token token, String feature, Object value) {
+        NLGElement result;
+        String word = token.text();
+
+        if (token.matches(isPronoun())) {
+            SPhraseSpec element = nlgFactory.createClause();
+            element.setObject(word);
+            result = element;
+
+        } else if (token.matches(isVerb())) {
+            VPPhraseSpec element = nlgFactory.createVerbPhrase();
+            element.setVerb(word);
+            result = element;
+
+        } else if (token.matches(isNoun())) {
+            NPPhraseSpec element = nlgFactory.createNounPhrase();
+            element.setNoun(word);
+            result = element;
+
+        } else if (token.matches(isAdjective())) {
+            result = nlgFactory.createAdjectivePhrase(word);
+
+        } else if (token.matches(isAdverb())) {
+            result = nlgFactory.createAdverbPhrase(word);
+
+        } else {
+            SPhraseSpec element = nlgFactory.createClause();
+            element.setObject(word);
+            result = element;
+        }
+
+        result.setFeature(feature, value);
+        return result;
     }
 }
