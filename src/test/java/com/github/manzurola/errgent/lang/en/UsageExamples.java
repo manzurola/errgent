@@ -30,14 +30,14 @@ public class UsageExamples {
     }
 
     @Test
-    void generateSingleError() {
+    void generateErrors() {
 
         Doc target = annotator.parse("I need to remember to feed my cat.");
 
         // Generate all documents that contain the specified error
         List<GeneratedError> generatedErrors = generator.generateErrors(target);
         for (GeneratedError generatedError : generatedErrors) {
-            System.out.printf("Error: %s", generatedError.text());
+            System.out.printf("Error: %s%n", generatedError.text());
         }
     }
 

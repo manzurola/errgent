@@ -6,6 +6,7 @@ import com.github.manzurola.errgent.core.inflection.Inflection;
 import com.github.manzurola.errgent.core.inflection.InflectionFilter;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 public class EnInflectionFilter implements InflectionFilter {
 
@@ -17,7 +18,21 @@ public class EnInflectionFilter implements InflectionFilter {
 
     @Override
     public boolean test(Inflection inflection) {
-        String[] words = inflection.replacementText().trim().split(" ");
-        return Arrays.stream(words).allMatch(word -> !word.isBlank() && wordList.contains(word));
+        return Optional.of(inflection)
+                .filter(replacementNotEqualToOriginal())
+                .filter(isRealWord())
+                .isPresent();
     }
+
+    public InflectionFilter replacementNotEqualToOriginal() {
+        return inflection -> !inflection.replacementText().equals(inflection.originalText());
+    }
+
+    public InflectionFilter isRealWord() {
+        return inflection -> {
+            String[] words = inflection.replacementText().trim().split(" ");
+            return Arrays.stream(words).allMatch(word -> !word.isBlank() && wordList.contains(word));
+        };
+    }
+
 }

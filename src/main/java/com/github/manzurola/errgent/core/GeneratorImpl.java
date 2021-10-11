@@ -7,14 +7,12 @@ import com.github.manzurola.errgent.core.inflection.Inflection;
 import com.github.manzurola.errgent.core.inflection.InflectionFilter;
 import com.github.manzurola.errgent.core.inflection.Inflector;
 import com.github.manzurola.spacy4j.api.containers.Doc;
-import com.github.manzurola.spacy4j.api.containers.Token;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public final class GeneratorImpl implements Generator {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -44,8 +42,13 @@ public final class GeneratorImpl implements Generator {
                 .tokens()
                 .stream()
                 .flatMap(inflector::inflectToken)
+                .distinct()
+                .parallel()
+                .filter(inflectionFilter)
                 .map(inflection -> applyInflection(inflection, target))
-                .flatMap(inflectedDoc -> annotateGeneratedErrors(inflectedDoc, target.tokens()))
+                .map(inflectedDoc -> annotateSingleError(inflectedDoc, target))
+                .filter(Optional::isPresent)
+                .map(Optional::get)
                 .collect(Collectors.toList());
     }
 
@@ -56,11 +59,12 @@ public final class GeneratorImpl implements Generator {
         return annotator.parse(inflectedText);
     }
 
-    private Stream<GeneratedError> annotateGeneratedErrors(Doc inflectedDoc, List<Token> target) {
-        List<Annotation> annotations = annotator.annotate(inflectedDoc.tokens(), target);
+    private Optional<GeneratedError> annotateSingleError(Doc inflectedDoc, Doc target) {
+        List<Annotation> annotations = annotator.annotate(inflectedDoc.tokens(), target.tokens());
         return annotations
                 .stream()
                 .filter(Annotation::hasError)
+                .findFirst()
                 .map(annotation -> GeneratedError.of(inflectedDoc, annotation));
     }
 
