@@ -12,6 +12,7 @@ import com.github.manzurola.spacy4j.adapters.corenlp.CoreNLPAdapter;
 import com.github.manzurola.spacy4j.api.SpaCy;
 import com.github.manzurola.spacy4j.api.containers.Doc;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -21,14 +22,23 @@ import static com.github.manzurola.errant4j.core.GrammaticalError.REPLACEMENT_SU
 
 public class ErrgentTest {
 
+    private static Annotator annotator;
+    private static Generator generator;
+
+    @BeforeAll
+    static void setup() {
+        // Get a spaCy instance
+        SpaCy spacy = SpaCy.create(CoreNLPAdapter.create());
+        // Create an English error annotator
+        annotator = Errant.newAnnotator("en", spacy);
+        // Create an English error generator
+        generator = Errgent.newGenerator("en", annotator);
+    }
+
+
     @Test
     void generateSingleError() {
-        SpaCy spacy = SpaCy.create(CoreNLPAdapter.create());
-        Annotator annotator = Errant.newAnnotator("en", spacy);
-        Generator generator = Errgent.newGenerator("en", annotator);
-
         Doc target = annotator.parse("My girls like to have fun.");
-
         Doc expectedDoc = annotator.parse("My girls like to has fun.");
         GeneratedError expectedError = GeneratedError.of(
                 expectedDoc,
@@ -49,10 +59,6 @@ public class ErrgentTest {
 
     @Test
     void generateAllErrors() {
-        SpaCy spacy = SpaCy.create(CoreNLPAdapter.create());
-        Annotator annotator = Errant.newAnnotator("en", spacy);
-        Generator generator = Errgent.newGenerator("en", annotator);
-
         Doc expected1 = annotator.parse("My girls like to has fun.");
         Doc expected2 = annotator.parse("My girl like to has fun.");
         Doc target = annotator.parse("My girls like to have fun.");
