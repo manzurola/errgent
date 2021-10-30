@@ -1,6 +1,6 @@
 package com.github.manzurola.errgent.core;
 
-import com.github.manzurola.errant4j.core.GrammaticalError;
+import com.github.manzurola.errant4j.core.errors.GrammaticalError;
 import com.github.manzurola.spacy4j.api.containers.Doc;
 
 import java.util.List;
@@ -11,20 +11,30 @@ import java.util.List;
 public interface Generator {
 
     /**
-     * Utility method to apply NLP to a text using the underlying spacy instance.
+     * Generate inflected docs with the specified grammatical error. A utility
+     * method that filters results from {@link Generator#generateErrors(String)}
+     * that contain the specified error
      *
-     * @param text the text to parse
-     * @return a parsed Doc object
+     * @param sourceText the target from which grammatically incorrect variances
+     *                   will be produced.
+     * @return a list of {@link Doc} objects containing the specified
+     * grammatical error. Returns an empty list if no matching errors could be
+     * produced.
      */
-    Doc parse(String text);
+    List<GeneratedError> generateErrors(
+        String sourceText,
+        GrammaticalError error
+    );
 
     /**
-     * Generate inflected docs with the specified grammatical error.
+     * Generate inflected docs with all possible grammatical errors.
      *
-     * @param target the target from which grammatically incorrect variances will be produced.
-     * @return a list of {@link Doc} objects containing the specified grammatical error. Returns an empty list if no
-     * matching errors could be produced.
+     * @param sourceText the target from which grammatically incorrect variances
+     *                   will be produced.
+     * @return a list of {@link Doc} objects containing the specified
+     * grammatical error. Returns an empty list if no matching errors could be
+     * produced.
      */
-    List<Doc> generate(Doc target, GrammaticalError error);
+    List<GeneratedError> generateErrors(String sourceText);
 
 }
