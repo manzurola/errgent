@@ -1,57 +1,96 @@
 package com.github.manzurola.errgent.core;
 
-import com.github.manzurola.errant4j.core.Annotation;
-import com.github.manzurola.errant4j.core.GrammaticalError;
-import com.github.manzurola.spacy4j.api.containers.Doc;
+import com.github.manzurola.errant4j.core.errors.GrammaticalError;
 
 import java.util.Objects;
+import java.util.function.Function;
 
 public final class GeneratedError {
 
-    private final Doc doc;
-    private final Annotation annotation;
+    private final String text;
+    private final int charStart;
+    private final int charEnd;
+    private final GrammaticalError grammaticalError;
 
-    private GeneratedError(Doc doc, Annotation annotation) {
-        this.doc = Objects.requireNonNull(doc);
-        this.annotation = Objects.requireNonNull(annotation);
-    }
-
-    public static GeneratedError of(Doc doc, Annotation annotation) {
-        return new GeneratedError(doc, annotation);
-    }
-
-    public final Doc doc() {
-        return doc;
+    public GeneratedError(
+        String text,
+        int charStart,
+        int charEnd,
+        GrammaticalError grammaticalError
+    ) {
+        this.text = Objects.requireNonNull(text);
+        Objects.checkFromToIndex(charStart, charEnd, text.length());
+        this.charStart = charStart;
+        this.charEnd = charEnd;
+        this.grammaticalError = Objects.requireNonNull(grammaticalError);
     }
 
     public final String text() {
-        return doc.text();
+        return text;
     }
 
-    public final Annotation annotation() {
-        return annotation;
+    public final int charStart() {
+        return charStart;
     }
 
-    public final GrammaticalError grammaticalError() {
-        return annotation.grammaticalError();
+    public final int charEnd() {
+        return charEnd;
+    }
+
+    public final GrammaticalError error() {
+        return grammaticalError;
+    }
+
+    public final String markedText() {
+        return markedText(s -> "*" + s + "*");
+    }
+
+    public final String markedText(Function<String, String> errorDecorator) {
+        String decoratedMistake = errorDecorator.apply(errorSpan());
+        return new StringBuilder(text)
+            .replace(charStart, charEnd, decoratedMistake)
+            .toString();
+    }
+
+    /**
+     * Get the text span that is marked as error. A utility method that replaces
+     * text.substring(charStart, charEnd).
+     */
+    public final String errorSpan() {
+        return text.substring(charStart, charEnd);
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public final boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         GeneratedError that = (GeneratedError) o;
-        return Objects.equals(doc, that.doc) && Objects.equals(annotation, that.annotation);
+        return charStart == that.charStart &&
+               charEnd == that.charEnd &&
+               text.equals(that.text) &&
+               grammaticalError == that.grammaticalError;
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(doc, annotation);
+    public final int hashCode() {
+        return Objects.hash(charStart, charEnd, text, grammaticalError);
     }
 
     @Override
     public final String toString() {
-        return doc.text();
+        return "[" +
+               text +
+               ", " +
+               error() +
+               " at " +
+               charStart +
+               ", " +
+               charEnd +
+               " ]";
     }
 
 }

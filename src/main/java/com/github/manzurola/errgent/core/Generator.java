@@ -1,10 +1,9 @@
 package com.github.manzurola.errgent.core;
 
-import com.github.manzurola.errant4j.core.GrammaticalError;
+import com.github.manzurola.errant4j.core.errors.GrammaticalError;
 import com.github.manzurola.spacy4j.api.containers.Doc;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Base interface for grammatical error generators.
@@ -12,21 +11,30 @@ import java.util.Optional;
 public interface Generator {
 
     /**
-     * Generate inflected docs with the specified grammatical error.
+     * Generate inflected docs with the specified grammatical error. A utility
+     * method that filters results from {@link Generator#generateErrors(String)}
+     * that contain the specified error
      *
-     * @param target the target from which grammatically incorrect variances will be produced.
-     * @return a list of {@link Doc} objects containing the specified grammatical error. Returns an empty list if no
-     * matching errors could be produced.
+     * @param sourceText the target from which grammatically incorrect variances
+     *                   will be produced.
+     * @return a list of {@link Doc} objects containing the specified
+     * grammatical error. Returns an empty list if no matching errors could be
+     * produced.
      */
-    Optional<GeneratedError> generateError(Doc target, GrammaticalError error);
+    List<GeneratedError> generateErrors(
+        String sourceText,
+        GrammaticalError error
+    );
 
     /**
-     * Generate inflected docs with the specified grammatical error.
+     * Generate inflected docs with all possible grammatical errors.
      *
-     * @param target the target from which grammatically incorrect variances will be produced.
-     * @return a list of {@link Doc} objects containing the specified grammatical error. Returns an empty list if no
-     * matching errors could be produced.
+     * @param sourceText the target from which grammatically incorrect variances
+     *                   will be produced.
+     * @return a list of {@link Doc} objects containing the specified
+     * grammatical error. Returns an empty list if no matching errors could be
+     * produced.
      */
-    List<GeneratedError> generateErrors(Doc target);
+    List<GeneratedError> generateErrors(String sourceText);
 
 }

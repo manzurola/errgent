@@ -1,30 +1,16 @@
 package com.github.manzurola.errgent.core;
 
 import com.github.manzurola.errant4j.core.Annotator;
-import com.github.manzurola.errgent.lang.en.inflector.EnInflectionFilter;
-import com.github.manzurola.errgent.lang.en.inflector.EnInflector;
+import com.github.manzurola.errant4j.core.Errant;
+import com.github.manzurola.errgent.lang.en.EnInflector;
+import com.github.manzurola.spacy4j.api.SpaCy;
 
-import java.util.Map;
-import java.util.function.Function;
+public interface Errgent {
 
-public final class Errgent {
-
-    private static final Map<String, Function<Annotator, Generator>> generators;
-
-    static {
-        generators = Map.of(
-                "en", annotator -> new GeneratorImpl(annotator, new EnInflector(), new EnInflectionFilter())
+    static Generator forEnglish(SpaCy spaCy) {
+        Annotator annotator = Errant.forEnglish(spaCy);
+        return new GeneratorImpl(
+            new EnInflector(), annotator
         );
-    }
-
-    private Errgent() {
-    }
-
-    public static Generator newGenerator(String language, Annotator annotator) {
-        if (generators.containsKey(language)) {
-            return generators.get(language).apply(annotator);
-        } else {
-            throw new IllegalArgumentException(String.format("Unsupported Errgent language %s", language));
-        }
     }
 }
