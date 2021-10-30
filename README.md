@@ -27,7 +27,7 @@ Add this to the dependencies section of your `pom.xml`:
 <dependency>
   <groupId>com.github.manzurola</groupId>
   <artifactId>errgent</artifactId>
-  <version>0.1.0</version>
+  <version>0.2.0</version>
 </dependency>
 ```
 
@@ -36,23 +36,31 @@ Add this to the dependencies section of your `pom.xml`:
 To use Errgent in code, follow these steps:
 
 ```java
-// Get a spaCy instance
-SpaCy spacy = SpaCy.create(CoreNLPAdapter.create());
+// Create a spacy instance (from spaCy4j)
+SpaCy spacy = SpaCy.create(CoreNLPAdapter.forEnglish());
 
-// Create an English error annotator
-Annotator annotator = Errant.newAnnotator("en", spacy);
+// Instantiate a new Errgent for English
+Generator errgent = Errgent.forEnglish(spacy);
 
-// Create an English error generator
-Generator generator = Errgent.newGenerator("en", annotator);
+// Generate a specific grammatical error in the target doc. Since a
+// sentence can contain multiple errors at once, all such possible
+// errors are returned.
+List<GeneratedError> generatedErrors = errgent.generateErrors(
+    "If I were you, I would go home.",
+    GrammaticalError.REPLACEMENT_SUBJECT_VERB_AGREEMENT
+);
 
-// parse the doc (a utilty method)
-Doc target = generator.parse("My friends like to have fun.");
-
-// Generate all documents that contain the specified error 
-// (will contain "My friends like to has fun.")
-List<Doc> inflections = generator.generate(target, REPLACEMENT_SUBJECT_VERB_AGREEMENT);
-for (Doc inflection : inflections) {
-    System.out.println(inflection.text());
+// Print out the results. The markedText() method retrieves the
+// erroneous text with the error marked by an asterisk on both sides.
+// We can also access the char offsets of the error using charStart
+// and charEnd methods of GeneratedError.
+for (GeneratedError generatedError : generatedErrors) {
+    String text = generatedError.markedText();
+    System.out.printf(
+        "%s, %s%n",
+        text,
+        generatedError.error()
+    );
 }
 ```
 
