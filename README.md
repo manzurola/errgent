@@ -2,7 +2,7 @@
 
 ![maven](https://github.com/manzurola/errgent/actions/workflows/maven.yml/badge.svg)
 
-A Java library for generating grammatical mistakes in text.
+A Java library for generating grammatical mistakes in natural language text.
 
 ## Prerequisits
 
