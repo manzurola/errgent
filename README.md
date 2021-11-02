@@ -4,6 +4,8 @@
 
 A Java library for generating grammatical mistakes in natural language text.
 
+Article - [Errgent - Grammatical Error Generator](https://guymanzurola.medium.com/errgent-grammatical-error-generation-toolkit-8048cf9d03ae).
+
 ## Prerequisits
 
 Before you begin, ensure you have met the following requirements:
