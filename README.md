@@ -2,15 +2,7 @@
 
 ![maven](https://github.com/manzurola/errgent/actions/workflows/maven.yml/badge.svg)
 
-Errgent generates grammatically incorrect variances of a valid English sentence.
-
-## How It Works
-
-We first create variances of the document by inflecting each token in the document. For English, we use SimpleNLG to create inflections in a brute force manner. 
-
-We then process each inflected doc by Errant, which annotates each doc pair (inflected vs original) for grammatical errors.
-
-Finally, we filter each pair to match those which contain the specified grammatical error. 
+A Java library for generating grammatical mistakes in text.
 
 ## Prerequisits
 
