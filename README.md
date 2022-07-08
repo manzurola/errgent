@@ -2,7 +2,7 @@
 
 ![maven](https://github.com/manzurola/errgent/actions/workflows/maven.yml/badge.svg)
 
-A Java library for generating grammatical mistakes in natural language text.
+Generate grammatical mistakes in natural language text.
 
 Article - [Errgent - Grammatical Error Generator](https://guymanzurola.medium.com/errgent-grammatical-error-generation-toolkit-8048cf9d03ae).
 
@@ -11,7 +11,6 @@ Article - [Errgent - Grammatical Error Generator](https://guymanzurola.medium.co
 Before you begin, ensure you have met the following requirements:
 
 * You have Java 11 installed.
-* You have access to Github Packages Maven registry as described [here](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-apache-maven-registry#authenticating-to-github-packages).
 * You have the necessary prerequisites for [Errant4J](https://github.com/manzurola/errant4j#prerequisits).
 
 ## Installing Errgent
@@ -19,9 +18,9 @@ Before you begin, ensure you have met the following requirements:
 Add this to the dependencies section of your `pom.xml`:
 ```xml
 <dependency>
-  <groupId>com.github.manzurola</groupId>
+  <groupId>io.github.manzurola</groupId>
   <artifactId>errgent</artifactId>
-  <version>0.2.0</version>
+  <version>0.3.0</version>
 </dependency>
 ```
 
