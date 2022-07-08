@@ -4,44 +4,150 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.github.manzurola</groupId>
+    <groupId>io.github.manzurola</groupId>
     <artifactId>errgent</artifactId>
-    <version>0.2.0</version>
+    <version>0.3.0</version>
+
+    <name>errgent</name>
+    <description>Generate grammatical mistakes in natural language text</description>
+    <url>https://github.com/manzurola/errgent</url>
+
+    <developers>
+        <developer>
+            <name>Guy Manzurola</name>
+            <email>guy.manzurola@gmail.com</email>
+            <roles>
+                <role>developer</role>
+            </roles>
+        </developer>
+    </developers>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://github.com/manzurola/errgent/blob/main/LICENSE</url>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:git://github.com/manzurola/errgent.git</connection>
+        <developerConnection>scm:git:git@github.com:manzurola/errgent.git</developerConnection>
+        <url>https://github.com/manzurola/errgent</url>
+        <tag>HEAD</tag>
+    </scm>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-        <junit-jupiter.version>5.5.2</junit-jupiter.version>
-        <logback.version>1.2.0</logback.version>
-        <errant4j.version>0.4.0</errant4j.version>
-        <spacy4j.version>0.3.0</spacy4j.version>
+        <junit-jupiter.version>5.8.2</junit-jupiter.version>
+        <logback.version>1.2.11</logback.version>
+        <errant4j.version>0.5.0</errant4j.version>
+        <spacy4j.version>0.4.0</spacy4j.version>
         <simplenlg.version>4.5.0</simplenlg.version>
     </properties>
 
     <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
         <repository>
-            <id>github</id>
-            <name>errgent</name>
-            <url>https://maven.pkg.github.com/manzurola/errgent</url>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.3.0</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>3.0.1</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <keyname>${gpg.keyname}</keyname>
+                    <passphraseServerId>${gpg.passphrase}</passphraseServerId>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.7</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>2.7</version>
+            </plugin>
+        </plugins>
+    </build>
+
     <dependencies>
         <dependency>
-            <groupId>com.github.manzurola</groupId>
+            <groupId>io.github.manzurola</groupId>
             <artifactId>spacy4j-adapters-corenlp</artifactId>
             <version>${spacy4j.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.manzurola</groupId>
+            <groupId>io.github.manzurola</groupId>
             <artifactId>spacy4j-adapters-spacy-server</artifactId>
             <version>${spacy4j.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.manzurola</groupId>
+            <groupId>io.github.manzurola</groupId>
             <artifactId>errant4j</artifactId>
             <version>${errant4j.version}</version>
         </dependency>
@@ -62,48 +168,5 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.3.0</version>
-                <configuration>
-                    <show>private</show>
-                    <nohelp>true</nohelp>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>3.2.0</version>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>jar-no-fork</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.2</version>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>versions-maven-plugin</artifactId>
-                <version>2.7</version>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>

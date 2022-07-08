@@ -1,6 +1,6 @@
-package com.github.manzurola.errgent.core;
+package io.github.manzurola.errgent.core;
 
-import com.github.manzurola.errant4j.core.errors.GrammaticalError;
+import io.github.manzurola.errant4j.core.errors.GrammaticalError;
 
 import java.util.Objects;
 import java.util.function.Function;

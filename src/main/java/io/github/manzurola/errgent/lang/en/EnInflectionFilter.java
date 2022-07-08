@@ -1,8 +1,8 @@
-package com.github.manzurola.errgent.lang.en;
+package io.github.manzurola.errgent.lang.en;
 
-import com.github.manzurola.errant4j.lang.en.utils.wordlist.HunspellWordList;
-import com.github.manzurola.errant4j.lang.en.utils.wordlist.WordList;
-import com.github.manzurola.errgent.core.inflection.Inflection;
+import io.github.manzurola.errant4j.lang.en.utils.wordlist.HunspellWordList;
+import io.github.manzurola.errant4j.lang.en.utils.wordlist.WordList;
+import io.github.manzurola.errgent.core.inflection.Inflection;
 
 import java.util.Arrays;
 import java.util.Optional;

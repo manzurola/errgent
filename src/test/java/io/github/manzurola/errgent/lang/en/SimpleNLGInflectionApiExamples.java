@@ -1,4 +1,4 @@
-package com.github.manzurola.errgent.lang.en;
+package io.github.manzurola.errgent.lang.en;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

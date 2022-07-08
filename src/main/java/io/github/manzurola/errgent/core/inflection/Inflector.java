@@ -1,6 +1,6 @@
-package com.github.manzurola.errgent.core.inflection;
+package io.github.manzurola.errgent.core.inflection;
 
-import com.github.manzurola.spacy4j.api.containers.Token;
+import io.github.manzurola.spacy4j.api.containers.Token;
 
 import java.util.stream.Stream;
 
