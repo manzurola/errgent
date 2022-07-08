@@ -1,11 +1,11 @@
-package com.github.manzurola.errgent.core;
+package io.github.manzurola.errgent.core;
 
-import com.github.manzurola.errant4j.core.Annotation;
-import com.github.manzurola.errant4j.core.Annotator;
-import com.github.manzurola.errant4j.core.errors.GrammaticalError;
-import com.github.manzurola.errgent.core.inflection.Inflector;
-import com.github.manzurola.spacy4j.api.containers.Doc;
-import com.github.manzurola.spacy4j.api.containers.Span;
+import io.github.manzurola.errant4j.core.Annotation;
+import io.github.manzurola.errant4j.core.Annotator;
+import io.github.manzurola.errant4j.core.errors.GrammaticalError;
+import io.github.manzurola.errgent.core.inflection.Inflector;
+import io.github.manzurola.spacy4j.api.containers.Doc;
+import io.github.manzurola.spacy4j.api.containers.Span;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

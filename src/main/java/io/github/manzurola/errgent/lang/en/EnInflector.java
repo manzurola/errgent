@@ -1,8 +1,8 @@
-package com.github.manzurola.errgent.lang.en;
+package io.github.manzurola.errgent.lang.en;
 
-import com.github.manzurola.errgent.core.inflection.Inflection;
-import com.github.manzurola.errgent.core.inflection.Inflector;
-import com.github.manzurola.spacy4j.api.containers.Token;
+import io.github.manzurola.errgent.core.inflection.Inflection;
+import io.github.manzurola.errgent.core.inflection.Inflector;
+import io.github.manzurola.spacy4j.api.containers.Token;
 import simplenlg.features.*;
 import simplenlg.framework.NLGElement;
 import simplenlg.framework.NLGFactory;
@@ -15,7 +15,7 @@ import simplenlg.realiser.english.Realiser;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static com.github.manzurola.errant4j.lang.en.classify.rules.common.Predicates.*;
+import static io.github.manzurola.errant4j.lang.en.classify.rules.common.Predicates.*;
 
 public final class EnInflector implements Inflector {
 
